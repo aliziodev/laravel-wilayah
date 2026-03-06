@@ -15,7 +15,6 @@ jobs:
       - name: Checkout package repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
 
       - name: Setup PHP
@@ -32,14 +31,14 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/cahyadsn/wilayah/commits/master" \
-            | jq -r '.sha')
+            | php -r '$data = json_decode(stream_get_contents(STDIN), true); echo $data["sha"] ?? "null";')
 
           # wilayah_kodepos → branch: main (beda!)
           KODEPOS_HASH=$(curl -sf \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/cahyadsn/wilayah_kodepos/commits/main" \
-            | jq -r '.sha')
+            | php -r '$data = json_decode(stream_get_contents(STDIN), true); echo $data["sha"] ?? "null";')
 
           # Gabungkan kedua hash sebagai fingerprint
           UPSTREAM_HASH="${WILAYAH_HASH:0:12}-${KODEPOS_HASH:0:12}"
@@ -53,13 +52,23 @@ jobs:
           echo "upstream_hash=$UPSTREAM_HASH" >> $GITHUB_OUTPUT
           echo "current_hash=$CURRENT_HASH"   >> $GITHUB_OUTPUT
 
-          if [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ] && [ "$WILAYAH_HASH" != "null" ]; then
+          if [ "$WILAYAH_HASH" = "null" ] || [ "$KODEPOS_HASH" = "null" ]; then
+            echo "Gagal membaca hash upstream dari GitHub API."
+            exit 1
+          fi
+
+          if [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ]; then
             echo "changed=true"  >> $GITHUB_OUTPUT
             echo "📦 Ada perubahan: $CURRENT_HASH → $UPSTREAM_HASH"
           else
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "✅ Data sudah up-to-date."
           fi
+
+      - name: Set release metadata
+        if: steps.check.outputs.changed == 'true'
+        id: meta
+        run: echo "release_date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Jalankan Normalizer (fetch raw SQL dari GitHub)
         if: steps.check.outputs.changed == 'true'
@@ -104,14 +113,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.version.outputs.new_version }}
-          name: "v${{ steps.version.outputs.new_version }} — Data Sync $(date +%Y-%m-%d)"
+          name: "v${{ steps.version.outputs.new_version }} - Data Sync ${{ steps.meta.outputs.release_date }}"
           body: |
-            ## 🗺 Data Update Wilayah Indonesia
+            ## Data Update Wilayah Indonesia
 
             Sinkronisasi otomatis data wilayah dari `cahyadsn/wilayah`.
 
             **Source commit:** `${{ steps.check.outputs.upstream_hash }}`
-            **Tanggal:** $(date +%Y-%m-%d)
+            **Tanggal:** ${{ steps.meta.outputs.release_date }}
 
             ### Cara update di project Anda:
             ```bash

@@ -7,7 +7,7 @@
 [![Laravel](https://img.shields.io/badge/Laravel-11%20%7C%2012%20%7C%2013-orange)](https://laravel.com)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-> Data wilayah administratif Indonesia (Provinsi → Kabupaten/Kota → Kecamatan → Desa/Kelurahan) untuk Laravel — selalu *up-to-date* via CI/CD otomatis dari upstream [`cahyadsn/wilayah`](https://github.com/cahyadsn/wilayah).
+> Data wilayah administratif Indonesia (Provinsi → Kabupaten/Kota → Kecamatan → Desa/Kelurahan) untuk Laravel — selalu *up-to-date* via CI/CD otomatis dari upstream [`cahyadsn/wilayah`](https://github.com/cahyadsn/wilayah) dan [`cahyadsn/wilayah_kodepos`](https://github.com/cahyadsn/wilayah_kodepos).
 
 ---
 
@@ -44,7 +44,7 @@
 | 📋 **Dropdown/Select** | Format cascade select & Livewire-ready |
 | 📄 **Paginasi** | `paginate()`, `simplePaginate()`, `cursorPaginate()` |
 | 🏝 **Data Opsional** | Islands, Luas Wilayah, Populasi (toggle via config) |
-| 🔄 **Auto-Sync CI/CD** | Data diperbarui otomatis saat upstream update |
+| 🔄 **Auto-Sync CI/CD** | Data dan metadata rilis diperbarui otomatis saat upstream update |
 | 🐘 **MySQL & PostgreSQL** | Dukungan penuh kedua database |
 
 ---
@@ -329,7 +329,14 @@ $province->population?->total;  // 48.782.382
 
 ## Update Data
 
-Data upstream diperbarui otomatis oleh GitHub Actions setiap hari. Ketika ada rilis baru, cukup jalankan:
+Data upstream diperbarui otomatis oleh GitHub Actions setiap hari pukul `02:00 UTC`. Workflow ini:
+
+- memeriksa hash upstream dari `cahyadsn/wilayah` dan `cahyadsn/wilayah_kodepos`
+- menjalankan `normalize.php` untuk memperbarui file di `data/`
+- menaikkan patch version di `composer.json`
+- membuat commit dan GitHub Release baru jika ada perubahan
+
+Ketika ada rilis baru, cukup jalankan:
 
 ```bash
 # 1. Update package
@@ -350,10 +357,21 @@ php artisan wilayah:sync
 ### Skema Update di CI/CD Internal
 
 ```
-Upstream update wilayah → GitHub Actions detect perubahan (hash check)
-→ normalize.php download & parse SQL → generate data/districts/ & data/villages/
-→ auto bump patch version → GitHub Release → composer update tersedia
+Upstream update wilayah / kodepos
+→ GitHub Actions cek fingerprint upstream
+→ normalize.php download & parse SQL
+→ generate file data/* + version metadata
+→ auto bump patch version
+→ commit ke branch utama
+→ GitHub Release baru
+→ Packagist dapat mengambil versi terbaru
 ```
+
+### Catatan untuk Maintainer
+
+- Workflow `sync-upstream.yml` menggunakan `GITHUB_TOKEN` bawaan GitHub Actions. Secret `PAT_TOKEN` tidak diperlukan untuk konfigurasi default repo ini.
+- Jika branch utama memakai branch protection yang memblokir push dari GitHub Actions, step `git push` akan gagal sampai aturan repo mengizinkannya.
+- Workflow ini belum mengelola `CHANGELOG.md` secara otomatis. Release dibuat dengan body markdown statis, bukan auto-changelog penuh.
 
 ---
 

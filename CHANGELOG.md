@@ -11,7 +11,7 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
-## [1.0.0] — 2025-01-01
+## [1.0.0] — 2026-03-07
 
 ### Ditambahkan
 - 4 level data wilayah: Provinsi, Kabupaten/Kota, Kecamatan, Desa/Kelurahan

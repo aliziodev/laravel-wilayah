@@ -68,7 +68,9 @@ jobs:
       - name: Set release metadata
         if: steps.check.outputs.changed == 'true'
         id: meta
-        run: echo "release_date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+        run: |
+          cp data/version.php /tmp/wilayah-version-before.php 2>/dev/null || true
+          echo "release_date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Jalankan Normalizer (fetch raw SQL dari GitHub)
         if: steps.check.outputs.changed == 'true'
@@ -88,6 +90,7 @@ jobs:
           ")
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+          echo "current_version=$CURRENT" >> $GITHUB_OUTPUT
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
           php -r "
@@ -97,12 +100,23 @@ jobs:
           "
           echo "✅ Version bumped: $CURRENT → $NEW_VERSION"
 
+      - name: Generate changelog and release notes
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          php .github/scripts/generate_changelog.php \
+            /tmp/wilayah-version-before.php \
+            data/version.php \
+            CHANGELOG.md \
+            .github/release-notes.md \
+            "${{ steps.version.outputs.current_version }}" \
+            "${{ steps.version.outputs.new_version }}"
+
       - name: Commit & Push
         if: steps.check.outputs.changed == 'true'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ composer.json
+          git add data/ composer.json CHANGELOG.md
           git commit -m "data: sync upstream $(date +%Y-%m-%d) [skip ci]
 
           Source: cahyadsn/wilayah@${{ steps.check.outputs.upstream_hash }}"
@@ -114,18 +128,5 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.new_version }}
           name: "v${{ steps.version.outputs.new_version }} - Data Sync ${{ steps.meta.outputs.release_date }}"
-          body: |
-            ## Data Update Wilayah Indonesia
-
-            Sinkronisasi otomatis data wilayah dari `cahyadsn/wilayah`.
-
-            **Source commit:** `${{ steps.check.outputs.upstream_hash }}`
-            **Tanggal:** ${{ steps.meta.outputs.release_date }}
-
-            ### Cara update di project Anda:
-            ```bash
-            composer update aliziodev/laravel-wilayah
-            php artisan wilayah:sync --dry-run
-            php artisan wilayah:sync
-            ```
+          body_path: .github/release-notes.md
           generate_release_notes: false

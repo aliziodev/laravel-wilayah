@@ -11,6 +11,20 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.1] — 2026-03-06
+
+### Data Sync
+- Package version: `1.0.0` -> `1.0.1`
+- Upstream `cahyadsn/wilayah`: `unknown` -> `3be88845ef3b`
+- Upstream `cahyadsn/wilayah_kodepos`: `unknown` -> `4fa8c592a581`
+
+### Statistik
+- Provinces: 38 -> 38 (0)
+- Regencies: 514 -> 514 (0)
+- Districts: 7265 -> 7265 (0)
+- Villages: 83345 -> 83345 (0)
+---
+
 ## [1.0.0] — 2026-03-07
 
 ### Ditambahkan
@@ -28,5 +42,6 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Support Laravel 11.x dan 12.x (PHP ^8.2)
 - Support MySQL dan PostgreSQL
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.1...HEAD
 [1.0.0]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.0
+[1.0.1]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.1

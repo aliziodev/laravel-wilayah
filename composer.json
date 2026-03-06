@@ -1,7 +1,16 @@
 {
     "name": "aliziodev/laravel-wilayah",
     "description": "Laravel package untuk data wilayah administratif Indonesia (Provinsi, Kabupaten/Kota, Kecamatan, Desa/Kelurahan) yang selalu up-to-date.",
-    "keywords": ["laravel", "indonesia", "wilayah", "region", "province", "regency", "district", "village"],
+    "keywords": [
+        "laravel",
+        "indonesia",
+        "wilayah",
+        "region",
+        "province",
+        "regency",
+        "district",
+        "village"
+    ],
     "homepage": "https://github.com/aliziodev/laravel-wilayah",
     "license": "MIT",
     "type": "library",
@@ -57,5 +66,6 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "version": "1.0.1"
 }

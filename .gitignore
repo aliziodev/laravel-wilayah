@@ -1,0 +1,30 @@
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Composer
+composer.lock
+
+# Laravel
+.env
+.env.backup
+.env.testing
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+coverage/
+phpunit.xml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

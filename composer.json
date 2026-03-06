@@ -1,0 +1,61 @@
+{
+    "name": "aliziodev/laravel-wilayah",
+    "description": "Laravel package untuk data wilayah administratif Indonesia (Provinsi, Kabupaten/Kota, Kecamatan, Desa/Kelurahan) yang selalu up-to-date.",
+    "keywords": ["laravel", "indonesia", "wilayah", "region", "province", "regency", "district", "village"],
+    "homepage": "https://github.com/aliziodev/laravel-wilayah",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Aliziodev",
+            "email": "dev@aliziodev.com",
+            "homepage": "https://github.com/aliziodev"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "illuminate/database": "^11.0|^12.0|^13.0",
+        "illuminate/cache": "^11.0|^12.0|^13.0",
+        "illuminate/console": "^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.27",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^4.4",
+        "pestphp/pest-plugin-drift": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.1"
+    },
+    "suggest": {
+        "aliziodev/laravel-wilayah-boundaries": "Tambahkan data polygon batas wilayah untuk fitur peta/GIS",
+        "aliziodev/laravel-wilayah-logos": "Tambahkan asset logo/lambang daerah (Provinsi dan Kab/Kota)"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aliziodev\\Wilayah\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aliziodev\\Wilayah\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aliziodev\\Wilayah\\WilayahServiceProvider"
+            ],
+            "aliases": {
+                "Wilayah": "Aliziodev\\Wilayah\\Facades\\Wilayah"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

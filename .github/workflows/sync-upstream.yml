@@ -127,6 +127,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.version.outputs.new_version }}
-          name: "v${{ steps.version.outputs.new_version }} - Data Sync ${{ steps.meta.outputs.release_date }}"
+          name: "v${{ steps.version.outputs.new_version }} - Sync ${{ steps.meta.outputs.release_date }}"
           body_path: .github/release-notes.md
           generate_release_notes: false

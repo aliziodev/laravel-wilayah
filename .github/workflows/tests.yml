@@ -12,11 +12,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php:     ['8.2', '8.3']
-        laravel: ['11.*', '12.*']
+        php:     ['8.2', '8.3', '8.4']
+        laravel: ['11.*', '12.*', '13.*']
         exclude:
           - php: '8.2'
             laravel: '12.*'
+          - php: '8.2'
+            laravel: '13.*'
 
     name: PHP ${{ matrix.php }} — Laravel ${{ matrix.laravel }}
 
@@ -69,4 +71,4 @@ jobs:
           DB_DATABASE: wilayah_test
           DB_USERNAME: root
           DB_PASSWORD: password
-        run: vendor/bin/phpunit --testdox
+        run: vendor/bin/pest

@@ -2,9 +2,9 @@
 
 namespace Aliziodev\Wilayah\Http\Controllers;
 
+use Aliziodev\Wilayah\Facades\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Aliziodev\Wilayah\Facades\Wilayah;
 
 class WilayahController extends Controller
 {

@@ -1,16 +1,17 @@
 <?php
 
 uses(\Aliziodev\Wilayah\Tests\TestCase::class);
-use Illuminate\Support\Facades\Route;
 use Aliziodev\Wilayah\Http\Controllers\WilayahController;
-use function Pest\Laravel\{getJson};
+use Illuminate\Support\Facades\Route;
+
+use function Pest\Laravel\getJson;
 
 beforeEach(function () {
     // Register temporary routes for testing the controller
     Route::get('api/wilayah/provinces', [WilayahController::class, 'provinces']);
     Route::get('api/wilayah/regencies', [WilayahController::class, 'regencies']);
     Route::get('api/wilayah/districts', [WilayahController::class, 'districts']);
-    Route::get('api/wilayah/villages',  [WilayahController::class, 'villages']);
+    Route::get('api/wilayah/villages', [WilayahController::class, 'villages']);
 
     $this->seedTestData();
 });

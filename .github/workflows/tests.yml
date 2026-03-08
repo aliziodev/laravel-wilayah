@@ -82,6 +82,9 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-drift:${{ matrix.pest_plugin }}" "pestphp/pest-plugin-laravel:${{ matrix.pest_plugin }}" --dev --no-interaction --no-update
           composer update --prefer-dist --no-interaction --with-all-dependencies
 
+      - name: Run Pint
+        run: vendor/bin/pint --test
+
       - name: Run tests
         env:
           DB_CONNECTION: mysql

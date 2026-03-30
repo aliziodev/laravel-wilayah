@@ -11,6 +11,12 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.3] — 2026-03-30
+
+### Code Changes
+- chore: remove hardcoded version from composer.json (917f9ef)
+---
+
 ## [1.0.2] — 2026-03-30
 
 ### Code Changes
@@ -54,7 +60,8 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Support Laravel 11.x dan 12.x (PHP ^8.2)
 - Support MySQL dan PostgreSQL
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.3...HEAD
 [1.0.0]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.0
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.2
+[1.0.3]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.3

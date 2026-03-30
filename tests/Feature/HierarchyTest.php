@@ -1,7 +1,8 @@
 <?php
 
-uses(\Aliziodev\Wilayah\Tests\TestCase::class);
+uses(TestCase::class);
 use Aliziodev\Wilayah\Facades\Wilayah;
+use Aliziodev\Wilayah\Tests\TestCase;
 
 beforeEach(function () {
     $this->seedTestData();
@@ -62,6 +63,6 @@ test('dapat mendapatkan ancestors', function () {
 });
 
 test('kode tidak valid melempar exception', function () {
-    $this->expectException(\InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     Wilayah::hierarchy('99.99.99.9999');
 });

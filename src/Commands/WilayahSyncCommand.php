@@ -5,6 +5,7 @@ namespace Aliziodev\Wilayah\Commands;
 use Aliziodev\Wilayah\Database\Seeders\WilayahSeeder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class WilayahSyncCommand extends Command
 {
@@ -84,7 +85,7 @@ class WilayahSyncCommand extends Command
         $table = [];
         foreach ($levels as [$label, $key]) {
             $pkg = $pkgVersion['counts'][$key] ?? 0;
-            $db = \Illuminate\Support\Facades\DB::table(config("wilayah.table_names.{$key}", $key))->count();
+            $db = DB::table(config("wilayah.table_names.{$key}", $key))->count();
             $diff = $pkg - $db;
             $table[] = [$label, $db, $pkg, $diff >= 0 ? "+{$diff} baru" : "{$diff}"];
         }

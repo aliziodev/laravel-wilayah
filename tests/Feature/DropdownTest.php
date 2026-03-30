@@ -1,7 +1,8 @@
 <?php
 
-uses(\Aliziodev\Wilayah\Tests\TestCase::class);
+uses(TestCase::class);
 use Aliziodev\Wilayah\Facades\Wilayah;
+use Aliziodev\Wilayah\Tests\TestCase;
 
 beforeEach(function () {
     $this->seedTestData();
@@ -41,6 +42,6 @@ test('dapat membuat format select dengan value dan label', function () {
 });
 
 test('level tidak valid melempar exception', function () {
-    $this->expectException(\InvalidArgumentException::class);
+    $this->expectException(InvalidArgumentException::class);
     Wilayah::forDropdown('invalid_level');
 });

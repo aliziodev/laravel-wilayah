@@ -1,5 +1,13 @@
 <?php
 
+use Aliziodev\Wilayah\Models\District;
+use Aliziodev\Wilayah\Models\Island;
+use Aliziodev\Wilayah\Models\Province;
+use Aliziodev\Wilayah\Models\Regency;
+use Aliziodev\Wilayah\Models\RegionArea;
+use Aliziodev\Wilayah\Models\RegionPopulation;
+use Aliziodev\Wilayah\Models\Village;
+
 return [
 
     /*
@@ -25,13 +33,13 @@ return [
     | Override model jika Anda ingin extend atau menambah relasi custom.
     */
     'models' => [
-        'province' => \Aliziodev\Wilayah\Models\Province::class,
-        'regency' => \Aliziodev\Wilayah\Models\Regency::class,
-        'district' => \Aliziodev\Wilayah\Models\District::class,
-        'village' => \Aliziodev\Wilayah\Models\Village::class,
-        'island' => \Aliziodev\Wilayah\Models\Island::class,
-        'region_area' => \Aliziodev\Wilayah\Models\RegionArea::class,
-        'region_population' => \Aliziodev\Wilayah\Models\RegionPopulation::class,
+        'province' => Province::class,
+        'regency' => Regency::class,
+        'district' => District::class,
+        'village' => Village::class,
+        'island' => Island::class,
+        'region_area' => RegionArea::class,
+        'region_population' => RegionPopulation::class,
     ],
 
     /*

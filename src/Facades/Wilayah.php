@@ -2,6 +2,7 @@
 
 namespace Aliziodev\Wilayah\Facades;
 
+use Aliziodev\Wilayah\WilayahManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array forSelect(string $level, ?string $province = null, ?string $regency = null, ?string $district = null, string $key = 'code')
  * @method static void flushCache(?string $group = null)
  *
- * @see \Aliziodev\Wilayah\WilayahManager
+ * @see WilayahManager
  */
 class Wilayah extends Facade
 {

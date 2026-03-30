@@ -8,6 +8,7 @@ use Aliziodev\Wilayah\Services\HierarchyService;
 use Aliziodev\Wilayah\Services\SearchByPostalCodeService;
 use Aliziodev\Wilayah\Services\SearchService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class WilayahManager
 {
@@ -116,7 +117,7 @@ class WilayahManager
         return $this->postalCodeSearch->search($code);
     }
 
-    public function searchByPostalCode(string $code): \Illuminate\Database\Eloquent\Collection
+    public function searchByPostalCode(string $code): Collection
     {
         return $this->postalCodeSearch->search($code)->with([
             'district.regency.province',

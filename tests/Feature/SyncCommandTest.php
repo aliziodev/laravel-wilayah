@@ -1,6 +1,9 @@
 <?php
 
-uses(\Aliziodev\Wilayah\Tests\TestCase::class);
+use Aliziodev\Wilayah\Database\Seeders\WilayahSeeder;
+use Aliziodev\Wilayah\Tests\TestCase;
+
+uses(TestCase::class);
 
 test('sync command can run in dry-run mode', function () {
     $this->artisan('wilayah:sync', ['--dry-run' => true])
@@ -16,7 +19,7 @@ test('sync command requires confirmation without dry-run', function () {
 
 test('sync command runs seeder when confirmed', function () {
     // Mock the seeder so it doesn't actually insert data during test repeatedly
-    $this->mock(\Aliziodev\Wilayah\Database\Seeders\WilayahSeeder::class, function ($mock) {
+    $this->mock(WilayahSeeder::class, function ($mock) {
         $mock->shouldReceive('run')->once();
     });
 

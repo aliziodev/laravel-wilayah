@@ -2,6 +2,7 @@
 
 namespace Aliziodev\Wilayah\Services;
 
+use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\Repository;
 
 class CacheService
@@ -15,7 +16,7 @@ class CacheService
     protected bool $enabled;
 
     public function __construct(
-        \Illuminate\Cache\CacheManager $cache,
+        CacheManager $cache,
         array $config
     ) {
         $this->enabled = $config['enabled'] ?? true;

@@ -1,7 +1,8 @@
 <?php
 
-uses(\Aliziodev\Wilayah\Tests\TestCase::class);
+uses(TestCase::class);
 use Aliziodev\Wilayah\Facades\Wilayah;
+use Aliziodev\Wilayah\Tests\TestCase;
 
 beforeEach(function () {
     $this->seedTestData();

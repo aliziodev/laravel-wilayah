@@ -1,5 +1,8 @@
 <?php
 
+use Aliziodev\Wilayah\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,9 +14,9 @@
 |
 */
 
-// pest()->extend(\Aliziodev\Wilayah\Tests\TestCase::class)
-//  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-//     ->in('Feature');
+pest()->extend(TestCase::class)
+    ->use(RefreshDatabase::class)
+    ->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------

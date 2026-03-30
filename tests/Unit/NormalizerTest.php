@@ -1,9 +1,5 @@
 <?php
 
-use Aliziodev\Wilayah\Tests\TestCase;
-
-uses(TestCase::class);
-
 test('normalize script exists', function () {
     $scriptPath = dirname(__DIR__, 2).'/.github/scripts/normalize.php';
     expect(file_exists($scriptPath))->toBeTrue();

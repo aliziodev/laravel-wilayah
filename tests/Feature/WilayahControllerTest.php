@@ -1,8 +1,6 @@
 <?php
 
-uses(TestCase::class);
 use Aliziodev\Wilayah\Http\Controllers\WilayahController;
-use Aliziodev\Wilayah\Tests\TestCase;
 use Illuminate\Support\Facades\Route;
 
 use function Pest\Laravel\getJson;

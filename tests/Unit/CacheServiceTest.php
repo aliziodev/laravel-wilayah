@@ -1,8 +1,6 @@
 <?php
 
-uses(TestCase::class);
 use Aliziodev\Wilayah\Services\CacheService;
-use Aliziodev\Wilayah\Tests\TestCase;
 use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {

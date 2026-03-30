@@ -1,9 +1,6 @@
 <?php
 
 use Aliziodev\Wilayah\Database\Seeders\WilayahSeeder;
-use Aliziodev\Wilayah\Tests\TestCase;
-
-uses(TestCase::class);
 
 test('sync command can run in dry-run mode', function () {
     $this->artisan('wilayah:sync', ['--dry-run' => true])

@@ -84,20 +84,18 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         id: version
         run: |
-          CURRENT=$(php -r "
-            \$c = json_decode(file_get_contents('composer.json'), true);
-            echo \$c['version'] ?? '1.0.0';
-          ")
+          CURRENT_TAG=$(git tag --list 'v*' --sort=-version:refname | head -n 1)
+          CURRENT="${CURRENT_TAG#v}"
+
+          if [ -z "$CURRENT" ] || [ "$CURRENT" = "$CURRENT_TAG" ]; then
+            CURRENT="1.0.1"
+          fi
+
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           echo "current_version=$CURRENT" >> $GITHUB_OUTPUT
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-          php -r "
-            \$c = json_decode(file_get_contents('composer.json'), true);
-            \$c['version'] = '$NEW_VERSION';
-            file_put_contents('composer.json', json_encode(\$c, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
-          "
           echo "✅ Version bumped: $CURRENT → $NEW_VERSION"
 
       - name: Generate changelog and release notes
@@ -116,7 +114,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ composer.json CHANGELOG.md
+          git add data/ CHANGELOG.md
           git commit -m "data: sync upstream $(date +%Y-%m-%d) [skip ci]
 
           Source: cahyadsn/wilayah@${{ steps.check.outputs.upstream_hash }}"

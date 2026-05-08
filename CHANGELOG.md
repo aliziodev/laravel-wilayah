@@ -11,6 +11,20 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.6] — 2026-05-08
+
+### Data Sync
+- Package version: `1.0.5` -> `1.0.6`
+- Upstream `cahyadsn/wilayah`: `f1b6f87d9d5d` -> `cab2b18668c1`
+- Upstream `cahyadsn/wilayah_kodepos`: `4fa8c592a581` -> `4fa8c592a581`
+
+### Statistik
+- Provinces: 38 -> 38 (0)
+- Regencies: 514 -> 514 (0)
+- Districts: 7265 -> 7265 (0)
+- Villages: 83345 -> 83345 (0)
+---
+
 ## [1.0.5] — 2026-05-07
 
 ### Data Sync
@@ -80,10 +94,11 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Support Laravel 11.x dan 12.x (PHP ^8.2)
 - Support MySQL dan PostgreSQL
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.5...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah/compare/v1.0.6...HEAD
 [1.0.0]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.0
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.2
 [1.0.3]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.3
 [1.0.4]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.4
 [1.0.5]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.5
+[1.0.6]: https://github.com/aliziodev/laravel-wilayah/releases/tag/v1.0.6

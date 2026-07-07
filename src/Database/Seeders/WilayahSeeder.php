@@ -4,6 +4,7 @@ namespace Aliziodev\Wilayah\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class WilayahSeeder extends Seeder
 {
@@ -20,11 +21,16 @@ class WilayahSeeder extends Seeder
             $this->truncateTables();
         }
 
+        // Kunci 'params' WAJIB sama dengan nama argumen run(array $params) di seeder anak.
+        // Tanpa container, Seeder::__invoke men-spread array ini sebagai named arguments (PHP 8),
+        // sehingga kunci lain memicu "Unknown named parameter".
+        $parameters = ['params' => ['province' => $province]];
+
         // Seed 4 level inti selalu
-        $this->call(ProvinceSeeder::class, false, ['province' => $province]);
-        $this->call(RegencySeeder::class, false, ['province' => $province]);
-        $this->call(DistrictSeeder::class, false, ['province' => $province]);
-        $this->call(VillageSeeder::class, false, ['province' => $province]);
+        $this->call(ProvinceSeeder::class, false, $parameters);
+        $this->call(RegencySeeder::class, false, $parameters);
+        $this->call(DistrictSeeder::class, false, $parameters);
+        $this->call(VillageSeeder::class, false, $parameters);
 
         // Seed opsional hanya jika diminta
         if (in_array('islands', $withFeatures) && config('wilayah.features.islands')) {
@@ -32,17 +38,17 @@ class WilayahSeeder extends Seeder
         }
 
         if (in_array('areas', $withFeatures) && config('wilayah.features.areas')) {
-            $this->call(AreaSeeder::class, false, ['province' => $province]);
+            $this->call(AreaSeeder::class, false, $parameters);
         }
 
         if (in_array('populations', $withFeatures) && config('wilayah.features.populations')) {
-            $this->call(PopulationSeeder::class, false, ['province' => $province]);
+            $this->call(PopulationSeeder::class, false, $parameters);
         }
     }
 
     protected function truncateTables(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::disableForeignKeyConstraints();
 
         DB::table(config('wilayah.table_names.villages', 'villages'))->truncate();
         DB::table(config('wilayah.table_names.districts', 'districts'))->truncate();
@@ -59,6 +65,6 @@ class WilayahSeeder extends Seeder
             DB::table(config('wilayah.table_names.region_populations', 'region_populations'))->truncate();
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        Schema::enableForeignKeyConstraints();
     }
 }

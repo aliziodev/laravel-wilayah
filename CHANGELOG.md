@@ -9,6 +9,16 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ## [Unreleased]
 
+### Diperbaiki
+- `wilayah:seed` error `Unknown named parameter $province` — parameter seeder anak kini dikirim dengan kunci yang sesuai nama argumen `run(array $params)` sehingga tidak salah di-spread sebagai named arguments oleh `Seeder::__invoke`
+- Filter `--province` kini benar-benar diteruskan ke seeder anak (sebelumnya di-drop diam-diam pada jalur `db:seed`) dan diterapkan juga di `ProvinceSeeder`
+- `wilayah:seed --fresh` kini bekerja di PostgreSQL/SQLite — `SET FOREIGN_KEY_CHECKS` (khusus MySQL) diganti `Schema::disableForeignKeyConstraints()`
+- `wilayah:seed` dan `wilayah:sync` kini men-set container + command pada seeder sehingga seeder anak menampilkan progres di console
+
+### Ditambahkan
+- Regression test untuk `wilayah:seed --province` dan jalur container (`db:seed`)
+- `pint.json` — folder `data/` (hasil generate) dikecualikan dari formatter
+
 ---
 
 ## [1.0.31] — 2026-07-02

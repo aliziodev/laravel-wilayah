@@ -17,6 +17,7 @@ test('sync command requires confirmation without dry-run', function () {
 test('sync command runs seeder when confirmed', function () {
     // Mock the seeder so it doesn't actually insert data during test repeatedly
     $this->mock(WilayahSeeder::class, function ($mock) {
+        $mock->shouldIgnoreMissing($mock); // setContainer/setCommand tetap chainable
         $mock->shouldReceive('run')->once();
     });
 

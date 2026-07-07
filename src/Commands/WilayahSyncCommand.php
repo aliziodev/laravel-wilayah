@@ -55,7 +55,10 @@ class WilayahSyncCommand extends Command
 
         $this->info('Menjalankan seeder (upsert mode)...');
 
-        app(WilayahSeeder::class)->run(['province' => $province]);
+        $seeder = app(WilayahSeeder::class);
+        $seeder->setContainer($this->laravel)->setCommand($this);
+
+        $seeder->run(['province' => $province]);
 
         Artisan::call('wilayah:cache-clear');
 

@@ -32,7 +32,10 @@ class WilayahSeedCommand extends Command
 
         $start = microtime(true);
 
-        app(WilayahSeeder::class)->run([
+        $seeder = app(WilayahSeeder::class);
+        $seeder->setContainer($this->laravel)->setCommand($this);
+
+        $seeder->run([
             'fresh' => $fresh,
             'with' => $with,
             'province' => $province,

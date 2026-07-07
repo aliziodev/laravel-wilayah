@@ -67,6 +67,13 @@ jobs:
           key: ${{ runner.os }}-composer-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-${{ matrix.php }}-${{ matrix.laravel }}-
 
+      # Laravel 11 sudah EOL (security fix berakhir Maret 2026), sehingga Composer >= 2.9
+      # memblokir instalasinya karena ada advisory yang tidak akan dipatch. Matikan blokade
+      # hanya untuk leg ini; nama kunci config berbeda antar versi Composer, coba keduanya.
+      - name: Allow installing EOL Laravel 11 despite security advisories
+        if: matrix.laravel == '11.*'
+        run: composer config --no-interaction policy.advisories.block false || composer config --no-interaction audit.block-insecure false
+
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-drift:${{ matrix.pest_plugin }}" "pestphp/pest-plugin-laravel:${{ matrix.pest_plugin }}" --dev --no-interaction --no-update
